@@ -198,6 +198,26 @@
     [self taskStarted];
 }
 
+- (void) startEncodeRequest
+{
+	self.encodedTextBox.title = @"Base64 Encoded Text";
+}
+
+- (void) startDecodeRequest
+{
+	self.encodedTextBox.title = @"Base64 Encoded Text";
+}
+
+- (void) startEncodeFileRequest
+{
+	self.encodedTextBox.title = @"Base64 Encoded File";	
+}
+
+- (void) finishedEncodeFileRequest
+{
+	[showPrintable setHidden:YES];
+}
+
 - (void) finishedEncodeRequest
 {
     [showPrintable setHidden:YES];

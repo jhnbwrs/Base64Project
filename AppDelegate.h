@@ -27,6 +27,7 @@
 @property (retain) IBOutlet NSTextView* encodedTextView;
 @property (retain) IBOutlet NSButton* showPrintable;
 @property (retain) IBOutlet NSProgressIndicator* progressBar;
+@property (retain) IBOutlet NSBox* encodedTextBox;
 @property (copy)   NSString* textToDecode;
 @property (assign) BOOL isDecodedHex;
 @property (retain) IBOutlet NSTextField* implbitsLink;
@@ -36,5 +37,9 @@
 - (IBAction)copyEncodedClicked:(id)sender;
 - (void) finishedEncodeRequest;
 - (void) finishedDecodeRequest;
+- (void) finishedEncodeFileRequest;
+- (void) startEncodeRequest;
+- (void) startDecodeRequest;
+- (void) startEncodeFileRequest;
 
 @end
