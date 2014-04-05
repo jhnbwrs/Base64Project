@@ -10,7 +10,6 @@
 
 @synthesize appController;
 
-#if 0
 //This is code that will be used when this thing actually supports base64 encoding files.
 - (void) EncodeFile: (NSPasteboard*) pasteboard : (NSString*) error
 {
@@ -49,9 +48,18 @@
 	{
 		return;
 	}
-	NSString* filename = [fileArray objectAtIndex:0];
+	NSString* rval = [self encodeFiles:fileArray];
+	[appController.window makeKeyAndOrderFront:self];
+    [appController.window orderFrontRegardless];
+    
+   	//TODO: Maybe show the image here instead of the plain text...
+    
+    [appController.encodedTextView setString:rval];
+    [appController.encodedTextView scrollToBeginningOfDocument:self];
+	[appController.encodedTextView setEditable:NO];
+    [self writeResultToClipBoard:pasteboard Result:rval];
+    [rval release];
 }
-#endif
 
 - (void) EncodeText: (NSPasteboard*) pasteboard : (NSString*) error
 {
@@ -181,6 +189,42 @@
     [appController finishedEncodeRequest];
     appController.isDecodedHex = NO;
     return rval;
+}
+
+- (NSString*) encodeFile:(NSString*)filePath
+{
+	NSString*  rval = nil;
+    CFDataRef  dataToEncode = (CFDataRef)[NSData dataWithContentsOfFile:filePath];
+    CFErrorRef error = NULL;
+    
+    SecTransformRef encodingRef = SecEncodeTransformCreate(kSecBase64Encoding, &error );
+    SecTransformSetAttribute(encodingRef, kSecTransformInputAttributeName, dataToEncode, &error );
+    CFDataRef resultData = SecTransformExecute(encodingRef,&error);
+    
+    rval = [[NSString alloc] initWithBytes:CFDataGetBytePtr(resultData)
+                                    length:CFDataGetLength(resultData)
+                                  encoding:NSUTF8StringEncoding];
+    appController.isDecodedHex = NO;
+    return rval;
+}
+
+- (NSString*) encodeFiles:(NSArray*)fileArray
+{
+	NSString* rval = nil;
+	for( NSString* file in fileArray )
+	{
+		NSString* encodedValue = [self encodeFile:file];
+		if( !rval )
+		{
+			rval = [NSString stringWithFormat:@"%@:\n%@", file, encodedValue];
+		}
+		else
+		{
+			rval = [rval stringByAppendingFormat:@"%@:\n%@",file,encodedValue];
+		}
+	}
+	[appController finishedEncodeRequest];
+	return rval;
 }
 
 @end

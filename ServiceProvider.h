@@ -12,6 +12,7 @@
     AppDelegate* appController;
 }
 
+- (void) EncodeFile: (NSPasteboard*) pasteboard : (NSString*) error;
 - (void)EncodeText: (NSPasteboard*) pasteboard : (NSString*) error;
 - (void)DecodeText: (NSPasteboard*) pasteboard : (NSString*) error;
 - (void)EncodeTextReturn: (NSPasteboard*) pasteboard : (NSString*) error;

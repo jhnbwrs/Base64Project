@@ -8,13 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		FC5B917015ED7E1500B5B07C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC5B916F15ED7E1500B5B07C /* Cocoa.framework */; };
-		FC5B917A15ED7E1500B5B07C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FC5B917815ED7E1500B5B07C /* InfoPlist.strings */; };
-		FC5B917C15ED7E1500B5B07C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC5B917B15ED7E1500B5B07C /* main.m */; };
-		FC5B918015ED7E1500B5B07C /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FC5B917E15ED7E1500B5B07C /* Credits.rtf */; };
-		FC5B918315ED7E1500B5B07C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC5B918215ED7E1500B5B07C /* AppDelegate.m */; };
-		FC5B918615ED7E1500B5B07C /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC5B918415ED7E1500B5B07C /* MainMenu.xib */; };
-		FC5B91A815ED82D500B5B07C /* ServiceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = FC5B91A715ED82D500B5B07C /* ServiceProvider.m */; };
-		FCB6412A16D591AE00760253 /* Turtle.icns in Resources */ = {isa = PBXBuildFile; fileRef = FCB6412916D591AE00760253 /* Turtle.icns */; };
+		FCCD0EB618F0B31100455D95 /* Turtle.icns in Resources */ = {isa = PBXBuildFile; fileRef = FCCD0EB518F0B31100455D95 /* Turtle.icns */; };
+		FCCD0EC018F0B91F00455D95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */; };
+		FCCD0EC118F0B91F00455D95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCD0EBE18F0B91F00455D95 /* main.m */; };
+		FCCD0EC218F0B91F00455D95 /* ServiceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */; };
+		FCCD0EC518F0B9F900455D95 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCCD0EC318F0B9F900455D95 /* MainMenu.xib */; };
+		FCCD0EC818F0BA0B00455D95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCCD0EC618F0BA0B00455D95 /* InfoPlist.strings */; };
+		FCCD0ECB18F0BA2700455D95 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = FCCD0EC918F0BA2700455D95 /* Credits.rtf */; };
 		FCF5221915EEF72B007B61A2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCF5221815EEF72B007B61A2 /* Security.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,16 +26,16 @@
 		FC5B917315ED7E1500B5B07C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FC5B917415ED7E1500B5B07C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FC5B917715ED7E1500B5B07C /* Base64Anywhere-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Base64Anywhere-Info.plist"; sourceTree = "<group>"; };
-		FC5B917915ED7E1500B5B07C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FC5B917B15ED7E1500B5B07C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FC5B917D15ED7E1500B5B07C /* Base64Anywhere-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Base64Anywhere-Prefix.pch"; sourceTree = "<group>"; };
-		FC5B917F15ED7E1500B5B07C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		FC5B918115ED7E1500B5B07C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		FC5B918215ED7E1500B5B07C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FC5B918515ED7E1500B5B07C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		FC5B91A615ED82D500B5B07C /* ServiceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceProvider.h; sourceTree = "<group>"; };
-		FC5B91A715ED82D500B5B07C /* ServiceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceProvider.m; sourceTree = "<group>"; };
-		FCB6412916D591AE00760253 /* Turtle.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Turtle.icns; path = ../Turtle.icns; sourceTree = "<group>"; };
+		FCCD0EB518F0B31100455D95 /* Turtle.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Turtle.icns; sourceTree = SOURCE_ROOT; };
+		FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = SOURCE_ROOT; };
+		FCCD0EBE18F0B91F00455D95 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
+		FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceProvider.m; sourceTree = SOURCE_ROOT; };
+		FCCD0EC418F0B9F900455D95 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = SOURCE_ROOT; };
+		FCCD0EC718F0BA0B00455D95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		FCCD0ECA18F0BA2700455D95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = SOURCE_ROOT; };
 		FCF5221815EEF72B007B61A2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -92,13 +92,14 @@
 		FC5B917515ED7E1500B5B07C /* Base64Anywhere */ = {
 			isa = PBXGroup;
 			children = (
+				FCCD0EC318F0B9F900455D95 /* MainMenu.xib */,
+				FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */,
+				FCCD0EBE18F0B91F00455D95 /* main.m */,
+				FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */,
 				A82355BF1728CDBB004B743E /* Base64Anywhere.entitlements */,
 				FC5B918115ED7E1500B5B07C /* AppDelegate.h */,
-				FC5B918215ED7E1500B5B07C /* AppDelegate.m */,
-				FC5B918415ED7E1500B5B07C /* MainMenu.xib */,
 				FC5B917615ED7E1500B5B07C /* Supporting Files */,
 				FC5B91A615ED82D500B5B07C /* ServiceProvider.h */,
-				FC5B91A715ED82D500B5B07C /* ServiceProvider.m */,
 			);
 			path = Base64Anywhere;
 			sourceTree = "<group>";
@@ -106,12 +107,11 @@
 		FC5B917615ED7E1500B5B07C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FCB6412916D591AE00760253 /* Turtle.icns */,
+				FCCD0EC918F0BA2700455D95 /* Credits.rtf */,
+				FCCD0EC618F0BA0B00455D95 /* InfoPlist.strings */,
+				FCCD0EB518F0B31100455D95 /* Turtle.icns */,
 				FC5B917715ED7E1500B5B07C /* Base64Anywhere-Info.plist */,
-				FC5B917815ED7E1500B5B07C /* InfoPlist.strings */,
-				FC5B917B15ED7E1500B5B07C /* main.m */,
 				FC5B917D15ED7E1500B5B07C /* Base64Anywhere-Prefix.pch */,
-				FC5B917E15ED7E1500B5B07C /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -144,8 +144,18 @@
 			attributes = {
 				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = implbits;
+				TargetAttributes = {
+					FC5B916A15ED7E1500B5B07C = {
+						DevelopmentTeam = 84CX82JAPN;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
-			buildConfigurationList = FC5B916515ED7E1400B5B07C /* Build configuration list for PBXProject "base64anywhere" */;
+			buildConfigurationList = FC5B916515ED7E1400B5B07C /* Build configuration list for PBXProject "Base64Anywhere" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -167,10 +177,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC5B917A15ED7E1500B5B07C /* InfoPlist.strings in Resources */,
-				FC5B918015ED7E1500B5B07C /* Credits.rtf in Resources */,
-				FC5B918615ED7E1500B5B07C /* MainMenu.xib in Resources */,
-				FCB6412A16D591AE00760253 /* Turtle.icns in Resources */,
+				FCCD0EC818F0BA0B00455D95 /* InfoPlist.strings in Resources */,
+				FCCD0EB618F0B31100455D95 /* Turtle.icns in Resources */,
+				FCCD0EC518F0B9F900455D95 /* MainMenu.xib in Resources */,
+				FCCD0ECB18F0BA2700455D95 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,37 +191,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC5B917C15ED7E1500B5B07C /* main.m in Sources */,
-				FC5B918315ED7E1500B5B07C /* AppDelegate.m in Sources */,
-				FC5B91A815ED82D500B5B07C /* ServiceProvider.m in Sources */,
+				FCCD0EC218F0B91F00455D95 /* ServiceProvider.m in Sources */,
+				FCCD0EC118F0B91F00455D95 /* main.m in Sources */,
+				FCCD0EC018F0B91F00455D95 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FC5B917815ED7E1500B5B07C /* InfoPlist.strings */ = {
+		FCCD0EC318F0B9F900455D95 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC5B917915ED7E1500B5B07C /* en */,
+				FCCD0EC418F0B9F900455D95 /* en */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		FCCD0EC618F0BA0B00455D95 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCCD0EC718F0BA0B00455D95 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		FC5B917E15ED7E1500B5B07C /* Credits.rtf */ = {
+		FCCD0EC918F0BA2700455D95 /* Credits.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				FC5B917F15ED7E1500B5B07C /* en */,
+				FCCD0ECA18F0BA2700455D95 /* en */,
 			);
 			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		FC5B918415ED7E1500B5B07C /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FC5B918515ED7E1500B5B07C /* en */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -271,13 +281,16 @@
 		FC5B918A15ED7E1500B5B07C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Base64Anywhere/Base64Anywhere.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Base64Anywhere.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Base64Anywhere/Base64Anywhere-Prefix.pch";
-				INFOPLIST_FILE = "Base64Anywhere/Base64Anywhere-Info.plist";
+				GCC_PREFIX_HEADER = "Base64Anywhere-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Base64Anywhere-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -285,13 +298,16 @@
 		FC5B918B15ED7E1500B5B07C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = Base64Anywhere/Base64Anywhere.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Base64Anywhere.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Base64Anywhere/Base64Anywhere-Prefix.pch";
-				INFOPLIST_FILE = "Base64Anywhere/Base64Anywhere-Info.plist";
+				GCC_PREFIX_HEADER = "Base64Anywhere-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/Base64Anywhere-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -299,7 +315,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		FC5B916515ED7E1400B5B07C /* Build configuration list for PBXProject "base64anywhere" */ = {
+		FC5B916515ED7E1400B5B07C /* Build configuration list for PBXProject "Base64Anywhere" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC5B918715ED7E1500B5B07C /* Debug */,
