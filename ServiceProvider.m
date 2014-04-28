@@ -10,12 +10,26 @@
 
 @synthesize appController;
 
+-(void)setLineBreakMode:(NSLineBreakMode)mode forView:(NSTextView*)view
+{
+    NSTextStorage *storage = [view textStorage];
+    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    [style setLineBreakMode:mode];
+    [storage addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, [storage length])];
+    [style release];
+}
+
+-(void)setEncodedText:(NSString*)string
+{
+	[appController.encodedTextView setString:string];
+	[self setLineBreakMode: NSLineBreakByCharWrapping forView:appController.encodedTextView];
+	[appController.encodedTextView scrollToBeginningOfDocument:self];
+	[appController.encodedTextView setEditable:NO];
+}
+
 //This is code that will be used when this thing actually supports base64 encoding files.
 - (void) EncodeFile: (NSPasteboard*) pasteboard : (NSString*) error
 {
-	if( !appController )
-        return;
-	[appController startEncodeFileRequest];
     NSString* PBoardString = [[pasteboard stringForType: NSFilenamesPboardType] stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	if( !PBoardString )
 	{
@@ -51,40 +65,20 @@
 	{
 		return;
 	}
-<<<<<<< HEAD
+
 	NSString* rval = [self encodeFiles:fileArray];
 	[appController.window makeKeyAndOrderFront:self];
-    [appController.window orderFrontRegardless];
-    
-   	//TODO: Maybe show the image here instead of the plain text...
-    
-    [appController.encodedTextView setString:rval];
-    [appController.encodedTextView scrollToBeginningOfDocument:self];
-	[appController.encodedTextView setEditable:NO];
-    [self writeResultToClipBoard:pasteboard Result:rval];
+	[appController.window orderFrontRegardless];
+	
+	//TODO: Maybe show the image here instead of the plain text...
+	
+	[self setEncodedText:rval];
+	[self writeResultToClipBoard:pasteboard Result:rval];
     [rval release];
-=======
-	@autoreleasepool
-	{
-		NSString* rval = [self encodeFiles:fileArray];
-		[appController.window makeKeyAndOrderFront:self];
-		[appController.window orderFrontRegardless];
-		
-		//TODO: Maybe show the image here instead of the plain text...
-		
-		[appController.encodedTextView setString:rval];
-		[appController.encodedTextView scrollToBeginningOfDocument:self];
-		[appController.encodedTextView setEditable:NO];
-		[self writeResultToClipBoard:pasteboard Result:rval];
-	}
->>>>>>> Allow contextual encoding of files
 }
 
 - (void) EncodeText: (NSPasteboard*) pasteboard : (NSString*) error
 {
-	if( !appController )
-        return;
-	[appController startEncodeRequest];
     NSString* pboardString = [pasteboard stringForType:NSPasteboardTypeString];
     NSString* rval = [self encode:pboardString];
     [appController.window makeKeyAndOrderFront:self];
@@ -94,9 +88,7 @@
     [appController.plainTextView scrollToBeginningOfDocument:self];
 	[appController.plainTextView setEditable:NO];
     
-    [appController.encodedTextView setString:rval];
-    [appController.encodedTextView scrollToBeginningOfDocument:self];
-	[appController.encodedTextView setEditable:NO];
+    [self setEncodedText:rval];
     [self writeResultToClipBoard:pasteboard Result:rval];
     [rval release];
     return;
@@ -124,16 +116,13 @@
 {
     if( !appController )
         return;
-	[appController startDecodeRequest];
     NSString* pboardString = [pasteboard stringForType:NSPasteboardTypeString];
     NSString* noWhitespace = [self removeAllWhiteSpace:pboardString];
     NSString* rval = [self decode:noWhitespace];
     [appController.window makeKeyAndOrderFront:self];
     [appController.window orderFrontRegardless];
     
-    [appController.encodedTextView setString:noWhitespace];
-    [appController.encodedTextView scrollToBeginningOfDocument:self];
-	[appController.encodedTextView setEditable:NO];
+	[self setEncodedText:noWhitespace];
 
     [appController.plainTextView setString:rval];
     [appController.plainTextView scrollToBeginningOfDocument:self];
@@ -224,15 +213,9 @@
     SecTransformSetAttribute(encodingRef, kSecTransformInputAttributeName, dataToEncode, &error );
     CFDataRef resultData = SecTransformExecute(encodingRef,&error);
     
-<<<<<<< HEAD
     rval = [[NSString alloc] initWithBytes:CFDataGetBytePtr(resultData)
                                     length:CFDataGetLength(resultData)
                                   encoding:NSUTF8StringEncoding];
-=======
-    rval = [[[NSString alloc] initWithBytes:CFDataGetBytePtr(resultData)
-                                    length:CFDataGetLength(resultData)
-                                  encoding:NSUTF8StringEncoding] autorelease];
->>>>>>> Allow contextual encoding of files
     appController.isDecodedHex = NO;
     return rval;
 }
@@ -245,19 +228,11 @@
 		NSString* encodedValue = [self encodeFile:file];
 		if( !rval )
 		{
-<<<<<<< HEAD
-			rval = [NSString stringWithFormat:@"%@:\n%@", file, encodedValue];
-		}
-		else
-		{
-			rval = [rval stringByAppendingFormat:@"%@:\n%@",file,encodedValue];
-=======
 			rval = [NSString stringWithFormat:@"%@", encodedValue];
 		}
 		else
 		{
-			rval = [rval stringByAppendingFormat:@"\n\n%@", encodedValue];
->>>>>>> Allow contextual encoding of files
+			rval = [rval stringByAppendingFormat:@"\n\n%@",encodedValue];
 		}
 	}
 	[appController finishedEncodeRequest];

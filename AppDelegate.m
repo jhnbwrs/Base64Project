@@ -72,7 +72,6 @@
     
     // set the attributed string to the NSTextField
     [inTextField setAttributedStringValue: string];
-    
     [string release];
 }
 
