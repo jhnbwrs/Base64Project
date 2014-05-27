@@ -133,9 +133,10 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="minSize" width="526" height="134"/>
-                                                <size key="maxSize" width="527" height="10000000"/>
+                                                <size key="maxSize" width="528" height="10000000"/>
                                                 <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="minSize" width="526" height="134"/>
+                                                <size key="maxSize" width="528" height="10000000"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -184,7 +185,7 @@
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="minSize" width="519" height="134"/>
-                                                <size key="maxSize" width="520" height="10000000"/>
+                                                <size key="maxSize" width="521" height="10000000"/>
                                                 <attributedString key="textStorage">
                                                     <fragment content=" ">
                                                         <attributes>
@@ -195,7 +196,7 @@
                                                 </attributedString>
                                                 <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 <size key="minSize" width="519" height="134"/>
-                                                <size key="maxSize" width="520" height="10000000"/>
+                                                <size key="maxSize" width="521" height="10000000"/>
                                                 <allowedInputSourceLocales>
                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                 </allowedInputSourceLocales>
@@ -252,6 +253,11 @@
                         <rect key="frame" x="20" y="14" width="560" height="20"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     </progressIndicator>
+                    <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="VHa-hb-8ng">
+                        <rect key="frame" x="19" y="14" width="566" height="250"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="g8T-WV-DNP"/>
+                    </imageView>
                 </subviews>
             </view>
         </window>
@@ -259,6 +265,7 @@
             <connections>
                 <outlet property="encodedTextBox" destination="616" id="yHz-er-3bz"/>
                 <outlet property="encodedTextView" destination="562" id="606"/>
+                <outlet property="imageView" destination="VHa-hb-8ng" id="oUk-7z-Bcn"/>
                 <outlet property="implbitsLink" destination="628" id="630"/>
                 <outlet property="plainTextView" destination="537" id="607"/>
                 <outlet property="progressBar" destination="633" id="634"/>

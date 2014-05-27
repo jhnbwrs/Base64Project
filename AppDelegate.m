@@ -48,6 +48,7 @@
 @synthesize textToDecode;
 @synthesize isDecodedHex;
 @synthesize progressBar;
+@synthesize imageView;
 
 - (void)dealloc
 {
@@ -191,7 +192,7 @@
 - (IBAction)showPrintableClicked:(id)sender
 {
     showPrintableState = !showPrintableState;
-    NSThread* thread = [[NSThread alloc] initWithTarget:self selector:@selector(changeText:) object:nil];
+    NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(changeText:) object:nil] autorelease];
     [thread start];
     [showPrintable setEnabled:NO];
     [self taskStarted];
@@ -201,24 +202,48 @@
 {
 	self.encodedTextBox.title = @"Base64 Encoded Text";
 	[self.plainTextView setString:@""];
+	[imageView setHidden:YES];
 }
 
 - (void) startDecodeRequest
 {
 	self.encodedTextBox.title = @"Base64 Encoded Text";
 	[self.plainTextView setString:@""];
+	[imageView setHidden:YES];
 }
 
 - (void) startEncodeFileRequest
 {
 	self.encodedTextBox.title = @"Base64 Encoded File";
 	[self.plainTextView setString:@""];
+	[self.encodedTextView setString:@""];
+	[imageView setHidden:YES];
+}
+
+- (BOOL)isFileImage:(NSString*)path
+{
+	NSString* ext = [path pathExtension];
+	if( [ext isEqualToString:@"tiff"] ||
+	    [ext isEqualToString:@"jpg"] ||
+	    [ext isEqualToString:@"jpeg"] ||
+	    [ext isEqualToString:@"png"] ||
+	    [ext isEqualToString:@"gif"])
+	{
+		return YES;
+	}
+	return NO;
 }
 
 - (void) finishedEncodeFileRequest:(NSString*)filename
 {
 	[showPrintable setHidden:YES];
 	[[[[NSApplication sharedApplication] windows]objectAtIndex:0] setTitle:[filename lastPathComponent]];
+	if( [self isFileImage:filename] )
+	{
+		NSImage* encodedImage = [[[NSImage alloc] initWithContentsOfFile:filename]autorelease];
+		[imageView setImage:encodedImage];
+		[imageView setHidden:NO];
+	}
 }
 
 - (void) finishedEncodeRequest

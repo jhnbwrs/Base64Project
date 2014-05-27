@@ -65,32 +65,21 @@
 	{
 		return;
 	}
-
-	NSString* rval = [self encodeFiles:fileArray];
-	[appController.window makeKeyAndOrderFront:self];
-	[appController.window orderFrontRegardless];
-	
-	//TODO: Maybe show the image here instead of the plain text...
-	
-	[self setEncodedText:rval];
-	[self writeResultToClipBoard:pasteboard Result:rval];
-	[rval release];
+	[appController startEncodeFileRequest];
+	[appController taskStarted];
+	NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(encodeFiles:) object:fileArray]autorelease];
+    [thread start];
 }
 
 - (void) EncodeText: (NSPasteboard*) pasteboard : (NSString*) error
 {
-    NSString* pboardString = [pasteboard stringForType:NSPasteboardTypeString];
-    NSString* rval = [self encode:pboardString];
-    [appController.window makeKeyAndOrderFront:self];
-    [appController.window orderFrontRegardless];
-    
-    [appController.plainTextView setString:pboardString];
-    [appController.plainTextView scrollToBeginningOfDocument:self];
-	[appController.plainTextView setEditable:NO];
-    
-    [self setEncodedText:rval];
-    [self writeResultToClipBoard:pasteboard Result:rval];
-    [rval release];
+	if( !appController )
+        return;
+	NSString* toEncode = [pasteboard stringForType:NSPasteboardTypeString];
+	[appController startEncodeRequest];
+	[appController.plainTextView setString:toEncode];
+	NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(encode:) object:pasteboard]autorelease];
+    [thread start];
     return;
 }
 
@@ -98,10 +87,11 @@
 {
     if( !appController )
         return;
-    NSString* pboardString = [pasteboard stringForType:NSPasteboardTypeString];
-    NSString* rval = [self encode:pboardString];
-    [self writeResultToClipBoard:pasteboard Result:rval];
-    [rval release]; 
+	NSString* toEncode = [pasteboard stringForType:NSPasteboardTypeString];
+	[appController startEncodeRequest];
+	[appController.plainTextView setString:toEncode];
+	NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(encode:) object:pasteboard]autorelease];
+    [thread start];
 }
 
 -(NSString*)removeAllWhiteSpace:(NSString*)original
@@ -185,9 +175,22 @@
     return rval;
 }
 
--(NSString*)encode:(NSString*)toEncode
+-(void)finishedEncodingText:(NSString*)text
 {
-	[appController startEncodeRequest];
+	
+    [appController.window makeKeyAndOrderFront:self];
+    [appController.window orderFrontRegardless];
+    [appController.plainTextView scrollToBeginningOfDocument:self];
+	[appController.plainTextView setEditable:NO];
+    [self setEncodedText:text];
+	[appController finishedEncodeRequest];
+    appController.isDecodedHex = NO;
+    [text release];
+}
+
+-(void)encode:(NSPasteboard*)pasteboard
+{
+	NSString* toEncode = [pasteboard stringForType:NSPasteboardTypeString];
     NSString*  rval = nil;
     CFDataRef  dataToEncode = (CFDataRef)[toEncode dataUsingEncoding:NSUTF8StringEncoding];
     CFErrorRef error = NULL;
@@ -198,9 +201,8 @@
     rval = [[NSString alloc] initWithBytes:CFDataGetBytePtr(resultData)
                                     length:CFDataGetLength(resultData)
                                   encoding:NSUTF8StringEncoding];
-    [appController finishedEncodeRequest];
-    appController.isDecodedHex = NO;
-    return rval;
+	[self performSelectorOnMainThread:@selector(finishedEncodingText:) withObject:rval waitUntilDone:NO];
+	[self writeResultToClipBoard:pasteboard Result:rval];
 }
 
 - (NSString*) encodeFile:(NSString*)filePath
@@ -216,13 +218,27 @@
     rval = [[NSString alloc] initWithBytes:CFDataGetBytePtr(resultData)
                                     length:CFDataGetLength(resultData)
                                   encoding:NSUTF8StringEncoding];
-    appController.isDecodedHex = NO;
-    return rval;
+	return rval;
 }
 
-- (NSString*) encodeFiles:(NSArray*)fileArray
+- (void)encodingFilesFinished:(NSString*)text
 {
-	[appController startEncodeFileRequest];
+	appController.isDecodedHex = NO;
+	[appController.window makeKeyAndOrderFront:self];
+	[appController.window orderFrontRegardless];
+	//TODO: Maybe show the image here instead of the plain text...
+	[self setEncodedText:text];
+	[appController taskFinished];
+	[text release];
+}
+
+- (void)sendFileFinishedNotification:(NSString*)file
+{
+	[appController finishedEncodeFileRequest:file];
+}
+
+- (void) encodeFiles:(NSArray*)fileArray
+{
 	NSString* rval = nil;
 	NSString* file = [fileArray objectAtIndex:0];
 	if( ![[NSFileManager defaultManager] fileExistsAtPath:file] )
@@ -241,24 +257,10 @@
 		rval = [[NSString alloc] initWithFormat:@"ERROR: File is too large!"];
 		goto FINISHED;
 	}
-	rval = [self encodeFile:file];
-	/*
-	for( NSString* file in fileArray )
-	{
-		NSString* encodedValue = [self encodeFile:file];
-		if( !rval )
-		{
-			rval = [NSString stringWithFormat:@"%@", encodedValue];
-		}
-		else
-		{
-			rval = [rval stringByAppendingFormat:@"\n\n%@",encodedValue];
-		}
-	}
-	*/
 FINISHED:
-	[appController finishedEncodeFileRequest:file];
-	return rval;
+	rval = [self encodeFile:file];
+	[self performSelectorOnMainThread:@selector(encodingFilesFinished:) withObject:rval waitUntilDone:NO];
+	[self performSelectorOnMainThread:@selector(sendFileFinishedNotification:) withObject:file waitUntilDone:NO];
 }
 
 @end
