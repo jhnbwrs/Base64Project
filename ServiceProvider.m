@@ -74,7 +74,7 @@
 	
 	[self setEncodedText:rval];
 	[self writeResultToClipBoard:pasteboard Result:rval];
-    [rval release];
+	[rval release];
 }
 
 - (void) EncodeText: (NSPasteboard*) pasteboard : (NSString*) error
@@ -187,10 +187,10 @@
 
 -(NSString*)encode:(NSString*)toEncode
 {
+	[appController startEncodeRequest];
     NSString*  rval = nil;
     CFDataRef  dataToEncode = (CFDataRef)[toEncode dataUsingEncoding:NSUTF8StringEncoding];
     CFErrorRef error = NULL;
-    
     SecTransformRef encodingRef = SecEncodeTransformCreate(kSecBase64Encoding, &error );
     SecTransformSetAttribute(encodingRef, kSecTransformInputAttributeName, dataToEncode, &error );
     CFDataRef resultData = SecTransformExecute(encodingRef,&error);
@@ -222,7 +222,27 @@
 
 - (NSString*) encodeFiles:(NSArray*)fileArray
 {
+	[appController startEncodeFileRequest];
 	NSString* rval = nil;
+	NSString* file = [fileArray objectAtIndex:0];
+	if( ![[NSFileManager defaultManager] fileExistsAtPath:file] )
+	{
+		rval = [[NSString alloc] initWithFormat:@"ERROR: File at path %@, doesn't exist",file];
+		goto FINISHED;
+	}
+	NSDictionary* dict = [[NSFileManager defaultManager] attributesOfItemAtPath:file error:nil];
+	if( !dict )
+	{
+		rval = [[NSString alloc] initWithFormat:@"ERROR: Unable to get attributes for file: %@",file];
+		goto FINISHED;
+	}
+	if( [dict fileSize] > 30000000 )
+	{
+		rval = [[NSString alloc] initWithFormat:@"ERROR: File is too large!"];
+		goto FINISHED;
+	}
+	rval = [self encodeFile:file];
+	/*
 	for( NSString* file in fileArray )
 	{
 		NSString* encodedValue = [self encodeFile:file];
@@ -235,7 +255,9 @@
 			rval = [rval stringByAppendingFormat:@"\n\n%@",encodedValue];
 		}
 	}
-	[appController finishedEncodeRequest];
+	*/
+FINISHED:
+	[appController finishedEncodeFileRequest:file];
 	return rval;
 }
 

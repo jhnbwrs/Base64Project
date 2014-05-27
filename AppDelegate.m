@@ -191,7 +191,7 @@
 - (IBAction)showPrintableClicked:(id)sender
 {
     showPrintableState = !showPrintableState;
-    NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(changeText:) object:nil] autorelease];
+    NSThread* thread = [[NSThread alloc] initWithTarget:self selector:@selector(changeText:) object:nil];
     [thread start];
     [showPrintable setEnabled:NO];
     [self taskStarted];
@@ -200,21 +200,25 @@
 - (void) startEncodeRequest
 {
 	self.encodedTextBox.title = @"Base64 Encoded Text";
+	[self.plainTextView setString:@""];
 }
 
 - (void) startDecodeRequest
 {
 	self.encodedTextBox.title = @"Base64 Encoded Text";
+	[self.plainTextView setString:@""];
 }
 
 - (void) startEncodeFileRequest
 {
-	self.encodedTextBox.title = @"Base64 Encoded File";	
+	self.encodedTextBox.title = @"Base64 Encoded File";
+	[self.plainTextView setString:@""];
 }
 
-- (void) finishedEncodeFileRequest
+- (void) finishedEncodeFileRequest:(NSString*)filename
 {
 	[showPrintable setHidden:YES];
+	[[[[NSApplication sharedApplication] windows]objectAtIndex:0] setTitle:[filename lastPathComponent]];
 }
 
 - (void) finishedEncodeRequest
