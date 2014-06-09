@@ -42,7 +42,9 @@
 
 @synthesize implbitsLink;
 @synthesize plainTextView;
+@synthesize plainTextBox;
 @synthesize encodedTextView;
+@synthesize encodedTextBox;
 @synthesize window;
 @synthesize showPrintable;
 @synthesize textToDecode;
@@ -203,6 +205,8 @@
 	self.encodedTextBox.title = @"Base64 Encoded Text";
 	[self.plainTextView setString:@""];
 	[imageView setHidden:YES];
+	[plainTextView setHidden:YES];
+	[encodedTextView setHidden:YES];
 }
 
 - (void) startDecodeRequest
@@ -210,6 +214,8 @@
 	self.encodedTextBox.title = @"Base64 Encoded Text";
 	[self.plainTextView setString:@""];
 	[imageView setHidden:YES];
+	[plainTextView setHidden:YES];
+	[encodedTextView setHidden:YES];
 }
 
 - (void) startEncodeFileRequest
@@ -218,16 +224,18 @@
 	[self.plainTextView setString:@""];
 	[self.encodedTextView setString:@""];
 	[imageView setHidden:YES];
+	[plainTextView setHidden:YES];
+	[encodedTextView setHidden:YES];
 }
 
 - (BOOL)isFileImage:(NSString*)path
 {
 	NSString* ext = [path pathExtension];
-	if( [ext isEqualToString:@"tiff"] ||
-	    [ext isEqualToString:@"jpg"] ||
-	    [ext isEqualToString:@"jpeg"] ||
-	    [ext isEqualToString:@"png"] ||
-	    [ext isEqualToString:@"gif"])
+	if( [ext caseInsensitiveCompare:@"tiff"] == NSOrderedSame ||
+	    [ext caseInsensitiveCompare:@"jpg"] == NSOrderedSame ||
+	    [ext caseInsensitiveCompare:@"jpeg"] == NSOrderedSame ||
+	    [ext caseInsensitiveCompare:@"png"] == NSOrderedSame ||
+	    [ext caseInsensitiveCompare:@"gif"] == NSOrderedSame)
 	{
 		return YES;
 	}
@@ -243,12 +251,25 @@
 		NSImage* encodedImage = [[[NSImage alloc] initWithContentsOfFile:filename]autorelease];
 		[imageView setImage:encodedImage];
 		[imageView setHidden:NO];
+		[plainTextView setHidden:YES];
+		[plainTextBox setHidden:YES];
 	}
+	else
+	{
+		[plainTextView setHidden:NO];
+		[plainTextBox setHidden:NO];
+	}
+	[encodedTextView setHidden:NO];
+	[encodedTextBox setHidden:NO];
 }
 
 - (void) finishedEncodeRequest
 {
     [showPrintable setHidden:YES];
+	[plainTextView setHidden:NO];
+	[plainTextBox setHidden:NO];
+	[encodedTextView setHidden:NO];
+	[encodedTextBox setHidden:NO];
 }
 
 - (void) finishedDecodeRequest
@@ -257,6 +278,10 @@
         [showPrintable setHidden:NO];
     else
         [showPrintable setHidden:YES];
+	[plainTextView setHidden:NO];
+	[plainTextBox setHidden:NO];
+	[encodedTextView setHidden:NO];
+	[encodedTextBox setHidden:NO];
 }
 
 - (void) copyStringToPasteBoard:(NSString*)value

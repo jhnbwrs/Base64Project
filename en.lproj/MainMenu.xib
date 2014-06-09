@@ -255,7 +255,7 @@
                     </progressIndicator>
                     <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="VHa-hb-8ng">
                         <rect key="frame" x="19" y="14" width="566" height="250"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="g8T-WV-DNP"/>
                     </imageView>
                 </subviews>
@@ -267,6 +267,7 @@
                 <outlet property="encodedTextView" destination="562" id="606"/>
                 <outlet property="imageView" destination="VHa-hb-8ng" id="oUk-7z-Bcn"/>
                 <outlet property="implbitsLink" destination="628" id="630"/>
+                <outlet property="plainTextBox" destination="617" id="Tyw-ZU-sS7"/>
                 <outlet property="plainTextView" destination="537" id="607"/>
                 <outlet property="progressBar" destination="633" id="634"/>
                 <outlet property="showPrintable" destination="622" id="624"/>

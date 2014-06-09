@@ -226,7 +226,6 @@
 	appController.isDecodedHex = NO;
 	[appController.window makeKeyAndOrderFront:self];
 	[appController.window orderFrontRegardless];
-	//TODO: Maybe show the image here instead of the plain text...
 	[self setEncodedText:text];
 	[appController taskFinished];
 	[text release];

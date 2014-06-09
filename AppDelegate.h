@@ -29,6 +29,7 @@
 @property (retain) IBOutlet NSProgressIndicator* progressBar;
 @property (retain) IBOutlet NSBox* encodedTextBox;
 @property (retain) IBOutlet NSImageView* imageView;
+@property (retain) IBOutlet NSBox* plainTextBox;
 @property (copy)   NSString* textToDecode;
 @property (assign) BOOL isDecodedHex;
 @property (retain) IBOutlet NSTextField* implbitsLink;
