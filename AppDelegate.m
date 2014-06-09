@@ -258,6 +258,7 @@
 	{
 		[plainTextView setHidden:NO];
 		[plainTextBox setHidden:NO];
+		[imageView setHidden:YES];
 	}
 	[encodedTextView setHidden:NO];
 	[encodedTextBox setHidden:NO];
@@ -282,6 +283,7 @@
 	[plainTextBox setHidden:NO];
 	[encodedTextView setHidden:NO];
 	[encodedTextBox setHidden:NO];
+	[imageView setHidden:YES];
 }
 
 - (void) copyStringToPasteBoard:(NSString*)value
