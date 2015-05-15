@@ -106,6 +106,7 @@
 {
     if( !appController )
         return;
+    
     NSString* pboardString = [pasteboard stringForType:NSPasteboardTypeString];
     NSString* noWhitespace = [self removeAllWhiteSpace:pboardString];
     NSString* rval = [self decode:noWhitespace];
@@ -171,7 +172,8 @@
     {
         appController.isDecodedHex = NO;
     }
-    [appController finishedDecodeRequest];
+    NSData* decoded = [NSData dataWithData:(NSData*)resultData];
+    [appController finishedDecodeRequest:decoded];
     return rval;
 }
 

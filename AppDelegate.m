@@ -273,17 +273,39 @@
 	[encodedTextBox setHidden:NO];
 }
 
-- (void) finishedDecodeRequest
+- (BOOL) isEncodedImage:(NSData*)decoded
 {
-    if( isDecodedHex )
-        [showPrintable setHidden:NO];
+    NSImage* image = [[NSImage alloc] initWithData:decoded];
+    if( image )
+    {
+        [imageView setImage:image];
+        [imageView setHidden:NO];
+        [plainTextView setHidden:YES];
+        [plainTextBox setHidden:YES];
+        [encodedTextView setHidden:NO];
+        [encodedTextBox setHidden:NO];
+        return YES;
+    }
     else
-        [showPrintable setHidden:YES];
-	[plainTextView setHidden:NO];
-	[plainTextBox setHidden:NO];
-	[encodedTextView setHidden:NO];
-	[encodedTextBox setHidden:NO];
-	[imageView setHidden:YES];
+    {
+        return NO;
+    }
+}
+
+- (void) finishedDecodeRequest:(NSData*)decoded
+{
+    if( ![self isEncodedImage:decoded] )
+    {
+        if( isDecodedHex )
+            [showPrintable setHidden:NO];
+        else
+            [showPrintable setHidden:YES];
+        [plainTextView setHidden:NO];
+        [plainTextBox setHidden:NO];
+        [encodedTextView setHidden:NO];
+        [encodedTextBox setHidden:NO];
+        [imageView setHidden:YES];
+    }
 }
 
 - (void) copyStringToPasteBoard:(NSString*)value

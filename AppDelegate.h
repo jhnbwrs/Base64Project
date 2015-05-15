@@ -38,7 +38,7 @@
 - (IBAction)copyDecodedClicked:(id)sender;
 - (IBAction)copyEncodedClicked:(id)sender;
 - (void) finishedEncodeRequest;
-- (void) finishedDecodeRequest;
+- (void) finishedDecodeRequest:(NSData*)decoded;
 - (void) finishedEncodeFileRequest:(NSString*)filename;
 - (void) startEncodeRequest;
 - (void) startDecodeRequest;
