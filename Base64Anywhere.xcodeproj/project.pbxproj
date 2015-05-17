@@ -96,10 +96,10 @@
 				FC5B918115ED7E1500B5B07C /* AppDelegate.h */,
 				FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */,
 				FCCD0EBE18F0B91F00455D95 /* main.m */,
+				FC5B91A615ED82D500B5B07C /* ServiceProvider.h */,
 				FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */,
 				A82355BF1728CDBB004B743E /* Base64Anywhere.entitlements */,
 				FC5B917615ED7E1500B5B07C /* Supporting Files */,
-				FC5B91A615ED82D500B5B07C /* ServiceProvider.h */,
 			);
 			path = Base64Anywhere;
 			sourceTree = "<group>";
@@ -107,8 +107,8 @@
 		FC5B917615ED7E1500B5B07C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FCCD0EC918F0BA2700455D95 /* Credits.rtf */,
 				FCCD0EC618F0BA0B00455D95 /* InfoPlist.strings */,
+				FCCD0EC918F0BA2700455D95 /* Credits.rtf */,
 				FCCD0EB518F0B31100455D95 /* Turtle.icns */,
 				FC5B917715ED7E1500B5B07C /* Base64Anywhere-Info.plist */,
 				FC5B917D15ED7E1500B5B07C /* Base64Anywhere-Prefix.pch */,
