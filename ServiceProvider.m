@@ -168,7 +168,8 @@
     {
         appController.isDecodedHex = NO;
     }
-    NSData* decoded = [NSData dataWithData:(__bridge NSData *)(resultData)];
+    NSData* decoded = [NSData dataWithData:CFBridgingRelease(resultData)];
+    CFRelease(encodingRef);
     [appController finishedDecodeRequest:decoded];
     return rval;
 }
@@ -200,6 +201,8 @@
                                   encoding:NSUTF8StringEncoding];
 	[self performSelectorOnMainThread:@selector(finishedEncodingText:) withObject:rval waitUntilDone:NO];
 	[self writeResultToClipBoard:pasteboard Result:rval];
+    CFRelease(resultData);
+    CFRelease(encodingRef);
 }
 
 - (NSString*) encodeFile:(NSString*)filePath
@@ -215,6 +218,8 @@
     rval = [[NSString alloc] initWithBytes:CFDataGetBytePtr(resultData)
                                     length:CFDataGetLength(resultData)
                                   encoding:NSUTF8StringEncoding];
+    CFRelease(encodingRef);
+    CFRelease(resultData);
 	return rval;
 }
 
@@ -253,8 +258,8 @@
 		rval = [[NSString alloc] initWithFormat:@"ERROR: File is too large!"];
 		goto FINISHED;
 	}
+    rval = [self encodeFile:file];
 FINISHED:
-	rval = [self encodeFile:file];
 	[self performSelectorOnMainThread:@selector(encodingFilesFinished:) withObject:rval waitUntilDone:NO];
 	[self performSelectorOnMainThread:@selector(sendFileFinishedNotification:) withObject:file waitUntilDone:NO];
 }

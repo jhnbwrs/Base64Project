@@ -178,6 +178,8 @@
     [plainTextView performSelectorOnMainThread:@selector(scrollToBeginningOfDocument) withObject:self waitUntilDone:YES];
 	[plainTextView performSelectorOnMainThread:@selector(setEditable) withObject:nil waitUntilDone:YES];
     [self performSelectorOnMainThread:@selector(convertTaskEnded:) withObject:(nil) waitUntilDone:YES];
+    CFRelease(resultData);
+    CFRelease(encodingRef);
 }
 
 - (IBAction)showPrintableClicked:(id)sender
