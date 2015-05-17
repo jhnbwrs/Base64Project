@@ -18,6 +18,6 @@
 - (void)EncodeTextReturn: (NSPasteboard*) pasteboard : (NSString*) error;
 - (void)DecodeTextReturn: (NSPasteboard*) pasteboard : (NSString*) error;
 
-@property (retain) AppDelegate* appController;
+@property (strong) AppDelegate* appController;
 
 @end

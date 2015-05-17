@@ -16,7 +16,6 @@
     NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     [style setLineBreakMode:mode];
     [storage addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, [storage length])];
-    [style release];
 }
 
 -(void)setEncodedText:(NSString*)string
@@ -52,7 +51,6 @@
 	NSPropertyListReadOptions read_options = 0;
 	NSError* deserializationError = NULL;
 	NSArray* fileArray = (NSArray*)[NSPropertyListSerialization propertyListWithData:plistData options:read_options format:nil error:&deserializationError];
-	[plistData release];
 	if( deserializationError )
 	{
 		return;
@@ -67,7 +65,7 @@
 	}
 	[appController startEncodeFileRequest];
 	[appController taskStarted];
-	NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(encodeFiles:) object:fileArray]autorelease];
+	NSThread* thread = [[NSThread alloc] initWithTarget:self selector:@selector(encodeFiles:) object:fileArray];
     [thread start];
 }
 
@@ -78,7 +76,7 @@
 	NSString* toEncode = [pasteboard stringForType:NSPasteboardTypeString];
 	[appController startEncodeRequest];
 	[appController.plainTextView setString:toEncode];
-	NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(encode:) object:pasteboard]autorelease];
+	NSThread* thread = [[NSThread alloc] initWithTarget:self selector:@selector(encode:) object:pasteboard];
     [thread start];
     return;
 }
@@ -90,7 +88,7 @@
 	NSString* toEncode = [pasteboard stringForType:NSPasteboardTypeString];
 	[appController startEncodeRequest];
 	[appController.plainTextView setString:toEncode];
-	NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(encode:) object:pasteboard]autorelease];
+	NSThread* thread = [[NSThread alloc] initWithTarget:self selector:@selector(encode:) object:pasteboard];
     [thread start];
 }
 
@@ -119,7 +117,6 @@
     [appController.plainTextView scrollToBeginningOfDocument:self];
 	[appController.plainTextView setEditable:NO];
     [self writeResultToClipBoard:pasteboard Result:rval];
-    [rval release];
     return;
 }
 
@@ -129,7 +126,6 @@
     NSString* noWhitespace = [self removeAllWhiteSpace:pboardString];
     NSString* rval = [self decode:noWhitespace];
     [self writeResultToClipBoard:pasteboard Result:rval];
-    [rval release];
 }
 
 - (void) writeResultToClipBoard:(NSPasteboard *)pboard Result:(NSString*)result
@@ -142,7 +138,7 @@
 -(NSString*)decode:(NSString*)toDecode
 {
     NSMutableString*  rval = nil;
-    CFDataRef  dataToDecode = (CFDataRef)[toDecode dataUsingEncoding:NSUTF8StringEncoding];
+    CFDataRef  dataToDecode = (__bridge CFDataRef)[toDecode dataUsingEncoding:NSUTF8StringEncoding];
     CFErrorRef error = NULL;
     
     appController.textToDecode = toDecode;
@@ -172,7 +168,7 @@
     {
         appController.isDecodedHex = NO;
     }
-    NSData* decoded = [NSData dataWithData:(NSData*)resultData];
+    NSData* decoded = [NSData dataWithData:(__bridge NSData *)(resultData)];
     [appController finishedDecodeRequest:decoded];
     return rval;
 }
@@ -187,14 +183,13 @@
     [self setEncodedText:text];
 	[appController finishedEncodeRequest];
     appController.isDecodedHex = NO;
-    [text release];
 }
 
 -(void)encode:(NSPasteboard*)pasteboard
 {
 	NSString* toEncode = [pasteboard stringForType:NSPasteboardTypeString];
     NSString*  rval = nil;
-    CFDataRef  dataToEncode = (CFDataRef)[toEncode dataUsingEncoding:NSUTF8StringEncoding];
+    CFDataRef  dataToEncode = (__bridge CFDataRef)[toEncode dataUsingEncoding:NSUTF8StringEncoding];
     CFErrorRef error = NULL;
     SecTransformRef encodingRef = SecEncodeTransformCreate(kSecBase64Encoding, &error );
     SecTransformSetAttribute(encodingRef, kSecTransformInputAttributeName, dataToEncode, &error );
@@ -210,7 +205,7 @@
 - (NSString*) encodeFile:(NSString*)filePath
 {
 	NSString*  rval = nil;
-    CFDataRef  dataToEncode = (CFDataRef)[NSData dataWithContentsOfFile:filePath];
+    CFDataRef  dataToEncode = (__bridge CFDataRef)[NSData dataWithContentsOfFile:filePath];
     CFErrorRef error = NULL;
     
     SecTransformRef encodingRef = SecEncodeTransformCreate(kSecBase64Encoding, &error );
@@ -230,7 +225,6 @@
 	[appController.window orderFrontRegardless];
 	[self setEncodedText:text];
 	[appController taskFinished];
-	[text release];
 }
 
 - (void)sendFileFinishedNotification:(NSString*)file
@@ -242,12 +236,13 @@
 {
 	NSString* rval = nil;
 	NSString* file = [fileArray objectAtIndex:0];
+    NSDictionary* dict = nil;
 	if( ![[NSFileManager defaultManager] fileExistsAtPath:file] )
 	{
 		rval = [[NSString alloc] initWithFormat:@"ERROR: File at path %@, doesn't exist",file];
 		goto FINISHED;
 	}
-	NSDictionary* dict = [[NSFileManager defaultManager] attributesOfItemAtPath:file error:nil];
+    dict = [[NSFileManager defaultManager] attributesOfItemAtPath:file error:nil];
 	if( !dict )
 	{
 		rval = [[NSString alloc] initWithFormat:@"ERROR: Unable to get attributes for file: %@",file];

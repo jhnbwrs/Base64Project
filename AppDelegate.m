@@ -34,7 +34,7 @@
     
     [attrString endEditing];
     
-    return [attrString autorelease];
+    return attrString;
 }
 @end
 
@@ -52,15 +52,6 @@
 @synthesize progressBar;
 @synthesize imageView;
 
-- (void)dealloc
-{
-    [plainTextView release];
-    [encodedTextView release];
-    [showPrintable release];
-    [textToDecode release];
-    [progressBar release];
-    [super dealloc];
-}
 
 -(void)setHyperlinkWithTextField:(NSTextField*)inTextField
 {
@@ -75,7 +66,6 @@
     
     // set the attributed string to the NSTextField
     [inTextField setAttributedStringValue: string];
-    [string release];
 }
 
 - (void) awakeFromNib
@@ -136,7 +126,7 @@
 
 - (void)changeText:(id)arg
 {
-    CFDataRef  dataToDecode = (CFDataRef)[textToDecode dataUsingEncoding:NSUTF8StringEncoding];
+    CFDataRef  dataToDecode = (__bridge CFDataRef)[textToDecode dataUsingEncoding:NSUTF8StringEncoding];
     CFErrorRef error = NULL;
     
     SecTransformRef encodingRef = SecDecodeTransformCreate(kSecBase64Encoding, &error );
@@ -188,13 +178,12 @@
     [plainTextView performSelectorOnMainThread:@selector(scrollToBeginningOfDocument) withObject:self waitUntilDone:YES];
 	[plainTextView performSelectorOnMainThread:@selector(setEditable) withObject:nil waitUntilDone:YES];
     [self performSelectorOnMainThread:@selector(convertTaskEnded:) withObject:(nil) waitUntilDone:YES];
-    [output release];
 }
 
 - (IBAction)showPrintableClicked:(id)sender
 {
     showPrintableState = !showPrintableState;
-    NSThread* thread = [[[NSThread alloc] initWithTarget:self selector:@selector(changeText:) object:nil] autorelease];
+    NSThread* thread = [[NSThread alloc] initWithTarget:self selector:@selector(changeText:) object:nil];
     [thread start];
     [showPrintable setEnabled:NO];
     [self taskStarted];
@@ -244,11 +233,12 @@
 
 - (void) finishedEncodeFileRequest:(NSString*)filename
 {
+    decodedData = nil;
 	[showPrintable setHidden:YES];
 	[[[[NSApplication sharedApplication] windows]objectAtIndex:0] setTitle:[filename lastPathComponent]];
 	if( [self isFileImage:filename] )
 	{
-		NSImage* encodedImage = [[[NSImage alloc] initWithContentsOfFile:filename]autorelease];
+		NSImage* encodedImage = [[NSImage alloc] initWithContentsOfFile:filename];
 		[imageView setImage:encodedImage];
 		[imageView setHidden:NO];
 		[plainTextView setHidden:YES];
@@ -266,6 +256,7 @@
 
 - (void) finishedEncodeRequest
 {
+    decodedData = nil;
     [showPrintable setHidden:YES];
 	[plainTextView setHidden:NO];
 	[plainTextBox setHidden:NO];
@@ -294,6 +285,7 @@
 
 - (void) finishedDecodeRequest:(NSData*)decoded
 {
+    decodedData = decoded;
     if( ![self isEncodedImage:decoded] )
     {
         if( isDecodedHex )
@@ -306,6 +298,27 @@
         [encodedTextBox setHidden:NO];
         [imageView setHidden:YES];
     }
+}
+
+- (NSString*)userSelectFile
+{
+    NSSavePanel* saveDlg = [NSSavePanel savePanel];
+    if ( [saveDlg runModal] == NSOKButton )
+    {
+        NSURL* file = [saveDlg URL];
+        return [file path];
+    }
+    return nil;
+}
+
+- (IBAction)saveDecodedClicked:(id)sender
+{
+    if( !decodedData )
+        return;
+    NSString* filename = [self userSelectFile];
+    if( !filename )
+        return;
+    [decodedData writeToFile:filename atomically:YES];
 }
 
 - (void) copyStringToPasteBoard:(NSString*)value

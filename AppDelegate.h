@@ -13,27 +13,29 @@
 {
     NSTextView*  painTextView;
     NSTextView*  encodedTextView;
-    NSWindow*    window;
+    NSWindow*    __unsafe_unretained window;
     NSButton*    showPrintable;
     NSTextField* implbitsLink;
     NSString*    textToDecode;
     NSProgressIndicator* progressBar;
     BOOL         isDecodedHex;
     BOOL         showPrintableState;
+    NSData*      decodedData;
 }
 
-@property (assign) IBOutlet NSWindow* window;
-@property (retain) IBOutlet NSTextView* plainTextView;
-@property (retain) IBOutlet NSTextView* encodedTextView;
-@property (retain) IBOutlet NSButton* showPrintable;
-@property (retain) IBOutlet NSProgressIndicator* progressBar;
-@property (retain) IBOutlet NSBox* encodedTextBox;
-@property (retain) IBOutlet NSImageView* imageView;
-@property (retain) IBOutlet NSBox* plainTextBox;
+@property (unsafe_unretained) IBOutlet NSWindow* window;
+@property (strong) IBOutlet NSTextView* plainTextView;
+@property (strong) IBOutlet NSTextView* encodedTextView;
+@property (strong) IBOutlet NSButton* showPrintable;
+@property (strong) IBOutlet NSProgressIndicator* progressBar;
+@property (strong) IBOutlet NSBox* encodedTextBox;
+@property (strong) IBOutlet NSImageView* imageView;
+@property (strong) IBOutlet NSBox* plainTextBox;
 @property (copy)   NSString* textToDecode;
 @property (assign) BOOL isDecodedHex;
-@property (retain) IBOutlet NSTextField* implbitsLink;
+@property (strong) IBOutlet NSTextField* implbitsLink;
 
+- (IBAction)saveDecodedClicked:(id)sender;
 - (IBAction)showPrintableClicked:(id)sender;
 - (IBAction)copyDecodedClicked:(id)sender;
 - (IBAction)copyEncodedClicked:(id)sender;
