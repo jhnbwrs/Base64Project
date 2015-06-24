@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9EE0A7601B3A6966002E8902 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE0A75F1B3A6966002E8902 /* Images.xcassets */; };
 		FC5B917015ED7E1500B5B07C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC5B916F15ED7E1500B5B07C /* Cocoa.framework */; };
 		FCCD0EB618F0B31100455D95 /* Turtle.icns in Resources */ = {isa = PBXBuildFile; fileRef = FCCD0EB518F0B31100455D95 /* Turtle.icns */; };
 		FCCD0EC018F0B91F00455D95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9EE0A75F1B3A6966002E8902 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A82355BF1728CDBB004B743E /* Base64Anywhere.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Base64Anywhere.entitlements; sourceTree = "<group>"; };
 		FC5B916B15ED7E1500B5B07C /* Base64Anywhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Base64Anywhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5B916F15ED7E1500B5B07C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -99,6 +101,7 @@
 				FC5B91A615ED82D500B5B07C /* ServiceProvider.h */,
 				FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */,
 				A82355BF1728CDBB004B743E /* Base64Anywhere.entitlements */,
+				9EE0A75F1B3A6966002E8902 /* Images.xcassets */,
 				FC5B917615ED7E1500B5B07C /* Supporting Files */,
 			);
 			path = Base64Anywhere;
@@ -178,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCCD0EC818F0BA0B00455D95 /* InfoPlist.strings in Resources */,
+				9EE0A7601B3A6966002E8902 /* Images.xcassets in Resources */,
 				FCCD0EB618F0B31100455D95 /* Turtle.icns in Resources */,
 				FCCD0EC518F0B9F900455D95 /* MainMenu.xib in Resources */,
 				FCCD0ECB18F0BA2700455D95 /* Credits.rtf in Resources */,
@@ -279,6 +283,7 @@
 		FC5B918A15ED7E1500B5B07C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Base64Anywhere.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -297,6 +302,7 @@
 		FC5B918B15ED7E1500B5B07C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Base64Anywhere.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";

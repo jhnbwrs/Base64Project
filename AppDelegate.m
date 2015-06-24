@@ -59,10 +59,9 @@
     [inTextField setAllowsEditingTextAttributes: YES];
     [inTextField setSelectable: YES];
     
-    NSURL* url = [NSURL URLWithString:@"http://www.implbits.com"];
-    
+    NSURL* url = [NSURL URLWithString:@"http://thecoderslife.blogspot.com/2015/06/adding-right-click-context-menu-to.html"];
     NSMutableAttributedString* string = [[NSMutableAttributedString alloc] init];
-    [string appendAttributedString: [NSAttributedString hyperlinkFromString:@"Implbits Software" withURL:url]];
+    [string appendAttributedString: [NSAttributedString hyperlinkFromString:@"Get the code!" withURL:url]];
     
     // set the attributed string to the NSTextField
     [inTextField setAttributedStringValue: string];
