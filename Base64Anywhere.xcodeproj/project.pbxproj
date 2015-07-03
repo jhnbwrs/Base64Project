@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9EA79F291B4307DB0054CA7E /* Base64Anywhere.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 9EA79F261B4307DB0054CA7E /* Base64Anywhere.entitlements */; };
+		9EA79F2B1B430BCD0054CA7E /* Base64Anywhere-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9EA79F2A1B430BCD0054CA7E /* Base64Anywhere-Info.plist */; };
 		9EE0A7601B3A6966002E8902 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EE0A75F1B3A6966002E8902 /* Images.xcassets */; };
 		FC5B917015ED7E1500B5B07C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC5B916F15ED7E1500B5B07C /* Cocoa.framework */; };
-		FCCD0EB618F0B31100455D95 /* Turtle.icns in Resources */ = {isa = PBXBuildFile; fileRef = FCCD0EB518F0B31100455D95 /* Turtle.icns */; };
 		FCCD0EC018F0B91F00455D95 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */; };
 		FCCD0EC118F0B91F00455D95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCD0EBE18F0B91F00455D95 /* main.m */; };
 		FCCD0EC218F0B91F00455D95 /* ServiceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */; };
@@ -20,18 +21,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9EA79F231B4307DB0054CA7E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9EA79F261B4307DB0054CA7E /* Base64Anywhere.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Base64Anywhere.entitlements; sourceTree = "<group>"; };
+		9EA79F271B4307DB0054CA7E /* ServiceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceProvider.h; sourceTree = "<group>"; };
+		9EA79F2A1B430BCD0054CA7E /* Base64Anywhere-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Base64Anywhere-Info.plist"; sourceTree = "<group>"; };
 		9EE0A75F1B3A6966002E8902 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		A82355BF1728CDBB004B743E /* Base64Anywhere.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Base64Anywhere.entitlements; sourceTree = "<group>"; };
 		FC5B916B15ED7E1500B5B07C /* Base64Anywhere.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Base64Anywhere.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5B916F15ED7E1500B5B07C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		FC5B917215ED7E1500B5B07C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		FC5B917315ED7E1500B5B07C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FC5B917415ED7E1500B5B07C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		FC5B917715ED7E1500B5B07C /* Base64Anywhere-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Base64Anywhere-Info.plist"; sourceTree = "<group>"; };
 		FC5B917D15ED7E1500B5B07C /* Base64Anywhere-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Base64Anywhere-Prefix.pch"; sourceTree = "<group>"; };
-		FC5B918115ED7E1500B5B07C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		FC5B91A615ED82D500B5B07C /* ServiceProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceProvider.h; sourceTree = "<group>"; };
-		FCCD0EB518F0B31100455D95 /* Turtle.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Turtle.icns; sourceTree = SOURCE_ROOT; };
 		FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = SOURCE_ROOT; };
 		FCCD0EBE18F0B91F00455D95 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
 		FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceProvider.m; sourceTree = SOURCE_ROOT; };
@@ -94,13 +94,13 @@
 		FC5B917515ED7E1500B5B07C /* Base64Anywhere */ = {
 			isa = PBXGroup;
 			children = (
+				9EA79F231B4307DB0054CA7E /* AppDelegate.h */,
+				9EA79F261B4307DB0054CA7E /* Base64Anywhere.entitlements */,
+				9EA79F271B4307DB0054CA7E /* ServiceProvider.h */,
 				FCCD0EC318F0B9F900455D95 /* MainMenu.xib */,
-				FC5B918115ED7E1500B5B07C /* AppDelegate.h */,
 				FCCD0EBD18F0B91F00455D95 /* AppDelegate.m */,
 				FCCD0EBE18F0B91F00455D95 /* main.m */,
-				FC5B91A615ED82D500B5B07C /* ServiceProvider.h */,
 				FCCD0EBF18F0B91F00455D95 /* ServiceProvider.m */,
-				A82355BF1728CDBB004B743E /* Base64Anywhere.entitlements */,
 				9EE0A75F1B3A6966002E8902 /* Images.xcassets */,
 				FC5B917615ED7E1500B5B07C /* Supporting Files */,
 			);
@@ -110,10 +110,9 @@
 		FC5B917615ED7E1500B5B07C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9EA79F2A1B430BCD0054CA7E /* Base64Anywhere-Info.plist */,
 				FCCD0EC618F0BA0B00455D95 /* InfoPlist.strings */,
 				FCCD0EC918F0BA2700455D95 /* Credits.rtf */,
-				FCCD0EB518F0B31100455D95 /* Turtle.icns */,
-				FC5B917715ED7E1500B5B07C /* Base64Anywhere-Info.plist */,
 				FC5B917D15ED7E1500B5B07C /* Base64Anywhere-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -180,9 +179,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EA79F2B1B430BCD0054CA7E /* Base64Anywhere-Info.plist in Resources */,
+				9EA79F291B4307DB0054CA7E /* Base64Anywhere.entitlements in Resources */,
 				FCCD0EC818F0BA0B00455D95 /* InfoPlist.strings in Resources */,
 				9EE0A7601B3A6966002E8902 /* Images.xcassets in Resources */,
-				FCCD0EB618F0B31100455D95 /* Turtle.icns in Resources */,
 				FCCD0EC518F0B9F900455D95 /* MainMenu.xib in Resources */,
 				FCCD0ECB18F0BA2700455D95 /* Credits.rtf in Resources */,
 			);
@@ -254,7 +254,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "A05DA74D-8BE8-4FA1-A588-83D79E0ECE21";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -275,7 +275,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PROVISIONING_PROFILE = "A05DA74D-8BE8-4FA1-A588-83D79E0ECE21";
+				PROVISIONING_PROFILE = "7d4154cc-4ec6-4d86-86b6-d9b7987cfa46";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -292,7 +292,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Base64Anywhere-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Base64Anywhere-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -311,7 +311,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Base64Anywhere-Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Base64Anywhere-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;

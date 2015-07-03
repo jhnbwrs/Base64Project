@@ -269,7 +269,7 @@
                     </textField>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="560" y="495.5"/>
+            <point key="canvasLocation" x="510" y="490.5"/>
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
