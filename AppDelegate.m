@@ -3,16 +3,6 @@
 //  Base64Anywhere
 //
 
-/* 
- 
- Future:
- 
- 1 - Enable service for image files.
- 2 - Add CSSify button
- 3 - Add option to save binary data as a file.
-
- */
-
 #import  "AppDelegate.h"
 #include "ServiceProvider.h"
 
@@ -38,6 +28,17 @@
 }
 @end
 
+typedef enum
+{
+    HTML,
+    CSS,
+    XML,
+    B64,
+    URL
+} ConversionType;
+
+ConversionType currentState = B64;
+
 @implementation AppDelegate
 
 @synthesize implbitsLink;
@@ -51,7 +52,21 @@
 @synthesize isDecodedHex;
 @synthesize progressBar;
 @synthesize imageView;
+@synthesize HTMLButton;
+@synthesize CSSButton;
+@synthesize URLButton;
+@synthesize XMLButton;
+@synthesize plainB64Button;
 
+
+-(ServiceProvider*)getSP
+{
+    if( sp == nil)
+    {
+        sp = [[ServiceProvider alloc] init];
+    }
+    return sp;
+}
 
 -(void)setHyperlinkWithTextField:(NSTextField*)inTextField
 {
@@ -60,6 +75,7 @@
     [inTextField setSelectable: YES];
     
     NSURL* url = [NSURL URLWithString:@"http://thecoderslife.blogspot.com/2015/06/adding-right-click-context-menu-to.html"];
+    
     NSMutableAttributedString* string = [[NSMutableAttributedString alloc] init];
     [string appendAttributedString: [NSAttributedString hyperlinkFromString:@"Get the code!" withURL:url]];
     
@@ -83,6 +99,10 @@
     [plainTextView setFont:font];
     [encodedTextView setFont:font];
     [showPrintable setHidden:YES];
+    [plainB64Button setState:NSOnState];
+    [self.encodedTextView setDraggingDelegate:self];
+    NSArray* types = [NSArray arrayWithObject: (NSString*)kUTTypeFileURL];
+    [self.encodedTextView registerForDraggedTypes: (NSArray*)types ];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
@@ -95,16 +115,73 @@
 	return NSTerminateNow;
 }
 
+- (void) setButtonStates:(ConversionType)type
+{
+    if(type != HTML)
+        [HTMLButton setState:NSOffState];
+    if(type != XML)
+        [XMLButton setState:NSOffState];
+    if(type != CSS)
+        [CSSButton setState:NSOffState];
+    if(type != B64)
+        [plainB64Button setState:NSOffState];
+    if(type != URL)
+        [URLButton setState:NSOffState];
+}
+
+- (IBAction) plainB64Clicked:(id)sender
+{
+    currentState = B64;
+    [encodedTextView setString:encodedText];
+    [self setButtonStates:B64];
+}
+
+- (IBAction) HTMLClicked:(id)sender
+{
+    currentState = HTML;
+    NSString* newText = [[NSString alloc] initWithFormat:@"<img alt=\"\" src=\"data:image/%@;base64,%@\">",imageType,encodedText];
+    [encodedTextView setString:newText];
+    [self setButtonStates:HTML];
+}
+
+- (IBAction) CSSClicked:(id)sender
+{
+    currentState = CSS;
+    NSString* newText = [[NSString alloc] initWithFormat:@"background-image:url(data:image/%@;base64,%@);",imageType,encodedText];
+    [encodedTextView setString:newText];
+    [self setButtonStates:CSS];
+}
+
+- (IBAction) XMLClicked:(id)sender
+{
+    currentState = XML;
+    NSString* newText = [[NSString alloc] initWithFormat:@"<data encoding=\"base64\" mime-type=\"image/%@\">%@</data>",imageType, encodedText];
+    [encodedTextView setString:newText];
+    [self setButtonStates:XML];
+}
+
+- (IBAction) URLClicked:(id)sender
+{
+    currentState = URL;
+    NSString* newText = [[NSString alloc] initWithFormat:@"data:image/%@;base64,%@",imageType,encodedText];
+    [encodedTextView setString:newText];
+    [self setButtonStates:URL];
+}
+
 - (void)taskStarted
 {
+    [implbitsLink setHidden:YES];
     [progressBar setHidden:NO];
-    [progressBar startAnimation:self];
+    [progressBar setIndeterminate:YES];
+    [progressBar setUsesThreadedAnimation:YES];
+    [progressBar startAnimation:nil];
 }
 
 - (void)taskFinished
 {
+    [implbitsLink setHidden:NO];
     [progressBar setHidden:YES];
-    [progressBar stopAnimation:self];
+    [progressBar stopAnimation:nil];
 }
 
 - (void)convertTaskEnded:(id)object
@@ -173,12 +250,10 @@
             }
         }
     }
-    [plainTextView performSelectorOnMainThread:@selector(setString:) withObject:output waitUntilDone:YES];
-    [plainTextView performSelectorOnMainThread:@selector(scrollToBeginningOfDocument) withObject:self waitUntilDone:YES];
-	[plainTextView performSelectorOnMainThread:@selector(setEditable) withObject:nil waitUntilDone:YES];
-    [self performSelectorOnMainThread:@selector(convertTaskEnded:) withObject:(nil) waitUntilDone:YES];
     CFRelease(resultData);
     CFRelease(encodingRef);
+    [plainTextView performSelectorOnMainThread:@selector(setString:) withObject:output waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(convertTaskEnded:) withObject:(nil) waitUntilDone:YES];
 }
 
 - (IBAction)showPrintableClicked:(id)sender
@@ -194,6 +269,7 @@
 {
 	self.encodedTextBox.title = @"Base64 Encoded Text";
 	[self.plainTextView setString:@""];
+    [self.encodedTextView setString:@""];
 	[imageView setHidden:YES];
 	[plainTextView setHidden:YES];
 	[encodedTextView setHidden:YES];
@@ -203,6 +279,7 @@
 {
 	self.encodedTextBox.title = @"Base64 Encoded Text";
 	[self.plainTextView setString:@""];
+    [self.encodedTextView setString:@""];
 	[imageView setHidden:YES];
 	[plainTextView setHidden:YES];
 	[encodedTextView setHidden:YES];
@@ -227,29 +304,71 @@
 	    [ext caseInsensitiveCompare:@"png"] == NSOrderedSame ||
 	    [ext caseInsensitiveCompare:@"gif"] == NSOrderedSame)
 	{
+        if( [ext caseInsensitiveCompare:@"jpg"] == NSOrderedSame )
+            imageType = @"jpeg";
+        else
+            imageType = [ext copy];
 		return YES;
 	}
 	return NO;
 }
 
+- (void) showHideForImageEncode:(BOOL)isImage
+{
+    [plainTextView setHidden:isImage];
+    [plainTextBox setHidden:isImage];
+    [imageView setHidden:!isImage];
+    [HTMLButton setHidden:!isImage];
+    [CSSButton setHidden:!isImage];
+    [URLButton setHidden:!isImage];
+    [plainB64Button setHidden:!isImage];
+    [XMLButton setHidden:!isImage];
+    if( isImage )
+    {
+        encodedText = [[encodedTextView string] copy];
+        if( currentState == XML)
+        {
+            [self XMLClicked:self];
+        }
+        else
+        if (currentState == B64)
+        {
+            [self plainB64Clicked:self];
+        }
+        else
+        if (currentState == CSS)
+        {
+            [self CSSClicked:self];
+        }
+        else
+        if (currentState == HTML)
+        {
+            [self HTMLClicked:self];
+        }
+        else
+        if (currentState == URL)
+        {
+            [self URLClicked:self];
+        }
+    }
+}
+
 - (void) finishedEncodeFileRequest:(NSString*)filename
 {
-    decodedData = nil;
+    self.decodedData = nil;
+    [encodedTextView setTextColor:[NSColor blackColor]];
 	[showPrintable setHidden:YES];
 	[[[[NSApplication sharedApplication] windows]objectAtIndex:0] setTitle:[filename lastPathComponent]];
 	if( [self isFileImage:filename] )
 	{
 		NSImage* encodedImage = [[NSImage alloc] initWithContentsOfFile:filename];
 		[imageView setImage:encodedImage];
-		[imageView setHidden:NO];
-		[plainTextView setHidden:YES];
-		[plainTextBox setHidden:YES];
+        [self showHideForImageEncode:YES];
 	}
 	else
 	{
-		[plainTextView setHidden:NO];
-		[plainTextBox setHidden:NO];
-		[imageView setHidden:YES];
+        encodedText = [[encodedTextView string] copy];
+        [self showHideForImageEncode:NO];
 	}
 	[encodedTextView setHidden:NO];
 	[encodedTextBox setHidden:NO];
@@ -257,12 +376,13 @@
 
 - (void) finishedEncodeRequest
 {
-    decodedData = nil;
+    self.decodedData = nil;
+    [encodedTextView setTextColor:[NSColor blackColor]];
     [showPrintable setHidden:YES];
-	[plainTextView setHidden:NO];
-	[plainTextBox setHidden:NO];
+    [self showHideForImageEncode:NO];
 	[encodedTextView setHidden:NO];
 	[encodedTextBox setHidden:NO];
+    encodedText = [[encodedTextView string] copy];
 }
 
 - (BOOL) isEncodedImage:(NSData*)decoded
@@ -272,54 +392,36 @@
     {
         [imageView setImage:image];
         [imageView setHidden:NO];
+        [self showHideForImageEncode:YES];
         [plainTextView setHidden:YES];
         [plainTextBox setHidden:YES];
         [encodedTextView setHidden:NO];
         [encodedTextBox setHidden:NO];
         return YES;
     }
-    else
-    {
-        return NO;
-    }
+    return NO;
 }
 
 - (void) finishedDecodeRequest:(NSData*)decoded
 {
-    decodedData = decoded;
+    self.decodedData = decoded;
     if( ![self isEncodedImage:decoded] )
     {
+        [encodedTextView setTextColor:[NSColor blackColor]];
         if( isDecodedHex )
+        {
             [showPrintable setHidden:NO];
+        }
         else
+        {
             [showPrintable setHidden:YES];
+        }
         [plainTextView setHidden:NO];
         [plainTextBox setHidden:NO];
         [encodedTextView setHidden:NO];
         [encodedTextBox setHidden:NO];
         [imageView setHidden:YES];
     }
-}
-
-- (NSString*)userSelectFile
-{
-    NSSavePanel* saveDlg = [NSSavePanel savePanel];
-    if ( [saveDlg runModal] == NSOKButton )
-    {
-        NSURL* file = [saveDlg URL];
-        return [file path];
-    }
-    return nil;
-}
-
-- (IBAction)saveDecodedClicked:(id)sender
-{
-    if( !decodedData )
-        return;
-    NSString* filename = [self userSelectFile];
-    if( !filename )
-        return;
-    [decodedData writeToFile:filename atomically:YES];
 }
 
 - (void) copyStringToPasteBoard:(NSString*)value
@@ -341,5 +443,122 @@
 {
     [self copyStringToPasteBoard:[encodedTextView string]];
 }
+
+- (NSString*)userSelectFile
+{
+    NSSavePanel* saveDlg = [NSSavePanel savePanel];
+    if ( [saveDlg runModal] == NSOKButton )
+    {
+        NSURL* file = [saveDlg URL];
+        return [file path];
+    }
+    return nil;
+}
+
+- (NSWindow *)draggingDestinationWindow
+{
+    return self.window;
+}
+
+- (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender
+{
+    return NSDragOperationLink;
+}
+- (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
+{
+    return NSDragOperationLink;
+}
+- (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
+{
+    return YES;
+}
+- (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
+{
+    NSPasteboard *pboard = [sender draggingPasteboard];
+    
+    if ( [[pboard types] containsObject:NSURLPboardType] )
+    {
+        NSURL *fileURL = [NSURL URLFromPasteboard:pboard];
+        NSString* filePath = [NSString stringWithUTF8String:[fileURL fileSystemRepresentation]];
+        NSArray* files = [[NSArray alloc] initWithObjects:filePath, nil];
+        [self startEncodeFileRequest];
+        [self taskStarted];
+        [self getSP].appController = self;
+        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            [[self getSP] encodeFiles:files];
+        }];
+        [[NSOperationQueue mainQueue] addOperation:operation];
+    }
+    return YES;
+}
+
+-(BOOL)isBase64Data:(NSString *)input
+{
+    if ([input length] % 4 == 0) {
+        static NSCharacterSet *invertedBase64CharacterSet = nil;
+        if (invertedBase64CharacterSet == nil) {
+            invertedBase64CharacterSet = [[NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="]invertedSet];
+        }
+        return [input rangeOfCharacterFromSet:invertedBase64CharacterSet options:NSLiteralSearch].location == NSNotFound;
+    }
+    return NO;
+}
+
+- (IBAction)saveDecodedClicked:(id)sender
+{
+    if( !self.decodedData )
+        return;
+    NSString* filename = [self userSelectFile];
+    if( !filename )
+        return;
+    [self.decodedData writeToFile:filename atomically:YES];
+}
+
+- (IBAction) pasteAction:(id)sender
+{
+    NSFont* font = [NSFont fontWithName:@"Courier" size:12];
+    [encodedTextView setFont:font];
+    [encodedTextView setTextColor:[NSColor blackColor]];
+    [encodedTextView setString: @""];
+    NSString* pasteValue = [[NSPasteboard generalPasteboard] stringForType: NSStringPboardType];
+    [self getSP].appController = self;
+    if( [self isBase64Data:pasteValue] )
+    {
+        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            [[self getSP] DecodeText:[NSPasteboard generalPasteboard] :nil];
+        }];
+        [[NSOperationQueue mainQueue] addOperation:operation];
+    }
+    else
+    {
+        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            [[self getSP] EncodeText:[NSPasteboard generalPasteboard] :nil];
+        }];
+        [[NSOperationQueue mainQueue] addOperation:operation];
+    }
+}
+
+- (IBAction) copyAction:(id)sender
+{
+    NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
+    if( pasteboard )
+    {
+        [pasteboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: NULL];
+        [pasteboard setString: self.encodedTextView.string forType: NSStringPboardType];
+    }
+}
+
+- (IBAction) copyDecodedAction:(id)sender
+{
+    NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
+    if( pasteboard )
+    {
+        [pasteboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: NULL];
+        [pasteboard setString: self.plainTextView.string forType: NSStringPboardType];
+    }
+}
+
+
+
 
 @end
