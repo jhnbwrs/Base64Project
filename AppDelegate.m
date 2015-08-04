@@ -57,7 +57,7 @@ ConversionType currentState = B64;
 @synthesize URLButton;
 @synthesize XMLButton;
 @synthesize plainB64Button;
-
+@synthesize decodedData;
 
 -(ServiceProvider*)getSP
 {

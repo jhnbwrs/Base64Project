@@ -175,7 +175,6 @@
     NSData* decoded = [NSData dataWithData:CFBridgingRelease(resultData)];
     [appController finishedDecodeRequest:decoded];
     CFRelease(encodingRef);
-    CFRelease(resultData);
     return rval;
 }
 
