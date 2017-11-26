@@ -355,10 +355,12 @@ ConversionType currentState = B64;
 
 - (void) finishedEncodeFileRequest:(NSString*)filename
 {
+    self.CopyEncodedText = YES;
     self.decodedData = nil;
     [encodedTextView setTextColor:[NSColor blackColor]];
 	[showPrintable setHidden:YES];
 	[[[[NSApplication sharedApplication] windows]objectAtIndex:0] setTitle:[filename lastPathComponent]];
+    [plainTextView setTextColor:[NSColor blackColor]];
 	if( [self isFileImage:filename] )
 	{
 		NSImage* encodedImage = [[NSImage alloc] initWithContentsOfFile:filename];
@@ -367,6 +369,8 @@ ConversionType currentState = B64;
 	}
 	else
 	{
+        [plainTextView setTextColor:[NSColor grayColor]];
+        [self.plainTextView setString:filename];
         encodedText = [[encodedTextView string] copy];
         [self showHideForImageEncode:NO];
 	}
@@ -376,8 +380,10 @@ ConversionType currentState = B64;
 
 - (void) finishedEncodeRequest
 {
+    self.CopyEncodedText = YES;
     self.decodedData = nil;
     [encodedTextView setTextColor:[NSColor blackColor]];
+    [plainTextView setTextColor:[NSColor blackColor]];
     [showPrintable setHidden:YES];
     [self showHideForImageEncode:NO];
 	[encodedTextView setHidden:NO];
@@ -404,7 +410,9 @@ ConversionType currentState = B64;
 
 - (void) finishedDecodeRequest:(NSData*)decoded
 {
+    self.CopyEncodedText = NO;
     self.decodedData = decoded;
+    [plainTextView setTextColor:[NSColor blackColor]];
     if( ![self isEncodedImage:decoded] )
     {
         [encodedTextView setTextColor:[NSColor blackColor]];
@@ -524,6 +532,7 @@ ConversionType currentState = B64;
     [self getSP].appController = self;
     if( [self isBase64Data:pasteValue] )
     {
+        self.CopyEncodedText = NO;
         NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
             [[self getSP] DecodeText:[NSPasteboard generalPasteboard] :nil];
         }];
@@ -531,6 +540,7 @@ ConversionType currentState = B64;
     }
     else
     {
+        self.CopyEncodedText = YES;
         NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
             [[self getSP] EncodeText:[NSPasteboard generalPasteboard] :nil];
         }];
@@ -543,18 +553,31 @@ ConversionType currentState = B64;
     NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
     if( pasteboard )
     {
-        [pasteboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: NULL];
-        [pasteboard setString: self.encodedTextView.string forType: NSStringPboardType];
+        if( self.CopyEncodedText )
+        {
+            [pasteboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: NULL];
+            [pasteboard setString: self.encodedTextView.string forType: NSStringPboardType];
+            [self.encodedTextView selectAll:NULL];
+        }
+        else
+        {
+            //If you don't copy encoded text then you copy Decoded Text
+            [pasteboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: NULL];
+            [pasteboard setString: self.plainTextView.string forType: NSStringPboardType];
+            [self.plainTextView selectAll:NULL];
+        }
     }
 }
 
-- (IBAction) copyDecodedAction:(id)sender
+- (IBAction) selectAllAction:(id)sender
 {
-    NSPasteboard* pasteboard = [NSPasteboard generalPasteboard];
-    if( pasteboard )
+    if( self.CopyEncodedText )
     {
-        [pasteboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: NULL];
-        [pasteboard setString: self.plainTextView.string forType: NSStringPboardType];
+        [self.encodedTextView selectAll:NULL];
+    }
+    else
+    {
+        [self.plainTextView selectAll:NULL];
     }
 }
 

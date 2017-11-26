@@ -40,6 +40,7 @@
 @property (strong) NSData* decodedData;
 @property (assign) BOOL isDecodedHex;
 @property (copy)   NSString* textToDecode;
+@property (assign) BOOL CopyEncodedText;
 
 - (IBAction)showPrintableClicked:(id)sender;
 - (IBAction)copyDecodedClicked:(id)sender;
@@ -54,7 +55,7 @@
 
 - (IBAction) pasteAction:(id)sender;
 - (IBAction) copyAction:(id)sender;
-- (IBAction) copyDecodedAction:(id)sender;
+- (IBAction) selectAllAction:(id)sender;
 
 - (void) finishedEncodeRequest;
 - (void) finishedDecodeRequest:(NSData*)decodeds;

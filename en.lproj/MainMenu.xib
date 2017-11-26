@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14C109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="1070" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -75,14 +77,14 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Edit" id="UPe-Td-iVo">
                         <items>
-                            <menuItem title="Copy Encoded Text" keyEquivalent="c" id="Qo2-Wa-acy">
+                            <menuItem title="Select All" keyEquivalent="a" id="Dlb-z9-iD3">
                                 <connections>
-                                    <action selector="copyAction:" target="494" id="3i9-5m-LhX"/>
+                                    <action selector="selectAllAction:" target="494" id="7dy-N1-G9b"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Copy Decoded Text" keyEquivalent="C" id="z9A-OG-YPW">
+                            <menuItem title="Copy" keyEquivalent="c" id="Qo2-Wa-acy">
                                 <connections>
-                                    <action selector="copyDecodedAction:" target="494" id="Qyt-1k-teS"/>
+                                    <action selector="copyAction:" target="494" id="3i9-5m-LhX"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Paste" keyEquivalent="v" id="nU5-rz-Qw0">
@@ -138,32 +140,32 @@
         </menu>
         <window title="Base64Anywhere" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <rect key="contentRect" x="1124" y="496" width="600" height="510"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="contentRect" x="1124" y="496" width="600" height="515"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="520" height="505"/>
             <view key="contentView" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="600" height="510"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="515"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <box autoresizesSubviews="NO" ambiguous="YES" misplaced="YES" title="Base64 Encoded Text" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="616">
-                        <rect key="frame" x="17" y="273" width="566" height="217"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="564" height="201"/>
+                    <box autoresizesSubviews="NO" borderType="line" title="Base64 Encoded Text" translatesAutoresizingMaskIntoConstraints="NO" id="616">
+                        <rect key="frame" x="17" y="313" width="566" height="182"/>
+                        <view key="contentView" id="9cN-uh-V1j">
+                            <rect key="frame" x="1" y="1" width="564" height="166"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <scrollView ambiguous="YES" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="559">
-                                    <rect key="frame" x="18" y="55" width="528" height="136"/>
-                                    <clipView key="contentView" ambiguous="YES" misplaced="YES" id="SkP-C4-njF">
-                                        <rect key="frame" x="1" y="1" width="526" height="134"/>
+                                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="559">
+                                    <rect key="frame" x="18" y="55" width="528" height="101"/>
+                                    <clipView key="contentView" id="SkP-C4-njF">
+                                        <rect key="frame" x="1" y="1" width="526" height="99"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="562" customClass="DragTextView">
-                                                <rect key="frame" x="0.0" y="0.0" width="526" height="134"/>
+                                            <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" spellingCorrection="YES" smartInsertDelete="YES" id="562" customClass="DragTextView">
+                                                <rect key="frame" x="0.0" y="0.0" width="526" height="99"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <size key="minSize" width="526" height="134"/>
-                                                <size key="maxSize" width="528" height="10000000"/>
+                                                <size key="minSize" width="526" height="99"/>
+                                                <size key="maxSize" width="541" height="10000000"/>
                                                 <attributedString key="textStorage">
                                                     <fragment>
                                                         <string key="content">You may drag and drop files here to have them Base64 encoded. You can also right click in finder and select "Services -&gt; Base64Encode" to trigger encoding of the selected file right from finder. </string>
@@ -175,8 +177,6 @@
                                                     </fragment>
                                                 </attributedString>
                                                 <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <size key="minSize" width="526" height="134"/>
-                                                <size key="maxSize" width="528" height="10000000"/>
                                             </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -186,7 +186,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="560">
-                                        <rect key="frame" x="503" y="1" width="15" height="167"/>
+                                        <rect key="frame" x="512" y="1" width="15" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
@@ -277,32 +277,30 @@
                             </subviews>
                         </view>
                         <constraints>
-                            <constraint firstItem="559" firstAttribute="top" secondItem="616" secondAttribute="top" constant="25" id="677-79-FgG"/>
-                            <constraint firstAttribute="trailing" secondItem="559" secondAttribute="trailing" constant="16" id="Fly-rX-0zq"/>
-                            <constraint firstAttribute="bottom" secondItem="Yyw-Ce-ngd" secondAttribute="bottom" constant="11" id="X70-mG-BWn"/>
-                            <constraint firstAttribute="bottom" secondItem="612" secondAttribute="bottom" constant="11" id="ZJR-qD-GUw"/>
-                            <constraint firstItem="Yyw-Ce-ngd" firstAttribute="leading" secondItem="QFt-7f-N6n" secondAttribute="trailing" id="cqI-ev-auV"/>
-                            <constraint firstItem="Yyw-Ce-ngd" firstAttribute="leading" secondItem="QFt-7f-N6n" secondAttribute="trailing" id="dvB-XI-UmC"/>
-                            <constraint firstItem="559" firstAttribute="leading" secondItem="616" secondAttribute="leading" constant="16" id="efA-dS-liI"/>
-                            <constraint firstItem="612" firstAttribute="top" secondItem="559" secondAttribute="bottom" constant="20" id="gLa-6O-xEX"/>
-                            <constraint firstItem="7ne-a7-Yaa" firstAttribute="leading" secondItem="RWR-El-96K" secondAttribute="trailing" id="gQx-eh-jAv"/>
-                            <constraint firstItem="RWR-El-96K" firstAttribute="leading" secondItem="pV2-yO-j12" secondAttribute="trailing" id="jwr-ay-4xj"/>
-                            <constraint firstAttribute="centerX" secondItem="pV2-yO-j12" secondAttribute="centerX" id="oBH-kv-ncf"/>
-                            <constraint firstItem="pV2-yO-j12" firstAttribute="leading" secondItem="Yyw-Ce-ngd" secondAttribute="trailing" id="t0J-6a-NIG"/>
-                            <constraint firstAttribute="trailing" secondItem="612" secondAttribute="trailing" constant="16" id="u1R-eF-hRd"/>
-                            <constraint firstAttribute="bottom" secondItem="RWR-El-96K" secondAttribute="bottom" constant="11" id="uJy-CO-oXc"/>
-                            <constraint firstAttribute="bottom" secondItem="QFt-7f-N6n" secondAttribute="bottom" constant="11" id="uK2-hm-5Rc"/>
-                            <constraint firstItem="7ne-a7-Yaa" firstAttribute="leading" secondItem="RWR-El-96K" secondAttribute="trailing" id="v3g-nC-Ds9"/>
-                            <constraint firstAttribute="bottom" secondItem="pV2-yO-j12" secondAttribute="bottom" constant="11" id="xo9-MF-okh"/>
-                            <constraint firstAttribute="bottom" secondItem="7ne-a7-Yaa" secondAttribute="bottom" constant="11" id="zDr-CR-GRP"/>
+                            <constraint firstItem="559" firstAttribute="leading" secondItem="616" secondAttribute="leading" constant="16" id="3z0-uP-Jhe"/>
+                            <constraint firstItem="RWR-El-96K" firstAttribute="leading" secondItem="pV2-yO-j12" secondAttribute="trailing" id="8cr-TD-qMx"/>
+                            <constraint firstAttribute="centerX" secondItem="pV2-yO-j12" secondAttribute="centerX" id="EGV-c1-Xxw"/>
+                            <constraint firstAttribute="trailing" secondItem="612" secondAttribute="trailing" constant="16" id="Enz-Y4-Xea"/>
+                            <constraint firstItem="7ne-a7-Yaa" firstAttribute="leading" secondItem="RWR-El-96K" secondAttribute="trailing" id="HCT-td-oCP"/>
+                            <constraint firstAttribute="trailing" secondItem="559" secondAttribute="trailing" constant="16" id="HnZ-DD-GlL"/>
+                            <constraint firstItem="612" firstAttribute="top" secondItem="559" secondAttribute="bottom" constant="20" id="Idb-uo-MgL"/>
+                            <constraint firstAttribute="bottom" secondItem="RWR-El-96K" secondAttribute="bottom" constant="11" id="OAm-JC-ikA"/>
+                            <constraint firstItem="Yyw-Ce-ngd" firstAttribute="leading" secondItem="QFt-7f-N6n" secondAttribute="trailing" id="OeW-RZ-NsZ"/>
+                            <constraint firstItem="559" firstAttribute="top" secondItem="616" secondAttribute="top" constant="25" id="Onv-fa-qN9"/>
+                            <constraint firstItem="Yyw-Ce-ngd" firstAttribute="leading" secondItem="QFt-7f-N6n" secondAttribute="trailing" id="SrV-2a-3aP"/>
+                            <constraint firstAttribute="bottom" secondItem="612" secondAttribute="bottom" constant="11" id="VYG-Z3-keo"/>
+                            <constraint firstAttribute="bottom" secondItem="QFt-7f-N6n" secondAttribute="bottom" constant="11" id="d72-D5-q04"/>
+                            <constraint firstItem="7ne-a7-Yaa" firstAttribute="leading" secondItem="RWR-El-96K" secondAttribute="trailing" id="g8Z-O7-dTP"/>
+                            <constraint firstItem="pV2-yO-j12" firstAttribute="leading" secondItem="Yyw-Ce-ngd" secondAttribute="trailing" id="lD1-jB-b6y"/>
+                            <constraint firstAttribute="bottom" secondItem="Yyw-Ce-ngd" secondAttribute="bottom" constant="11" id="nwN-o2-vYp"/>
+                            <constraint firstAttribute="bottom" secondItem="7ne-a7-Yaa" secondAttribute="bottom" constant="11" id="sqQ-SX-npE"/>
+                            <constraint firstAttribute="bottom" secondItem="pV2-yO-j12" secondAttribute="bottom" constant="11" id="xH5-ZM-rNY"/>
                         </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
-                    <box autoresizesSubviews="NO" ambiguous="YES" misplaced="YES" title="Decoded Data Or Text" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="617">
-                        <rect key="frame" x="17" y="43" width="566" height="217"/>
-                        <view key="contentView">
-                            <rect key="frame" x="1" y="1" width="564" height="201"/>
+                    <box autoresizesSubviews="NO" borderType="line" title="Decoded Data Or Text" translatesAutoresizingMaskIntoConstraints="NO" id="617">
+                        <rect key="frame" x="17" y="40" width="566" height="257"/>
+                        <view key="contentView" id="GyT-Ft-Mk7">
+                            <rect key="frame" x="1" y="1" width="564" height="241"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="622">
@@ -319,17 +317,17 @@
                                         <action selector="showPrintableClicked:" target="494" id="625"/>
                                     </connections>
                                 </button>
-                                <scrollView ambiguous="YES" misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="536">
-                                    <rect key="frame" x="18" y="55" width="521" height="136"/>
-                                    <clipView key="contentView" ambiguous="YES" misplaced="YES" id="ZBv-9E-YYZ">
-                                        <rect key="frame" x="1" y="1" width="519" height="134"/>
+                                <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="536">
+                                    <rect key="frame" x="18" y="55" width="521" height="176"/>
+                                    <clipView key="contentView" id="ZBv-9E-YYZ">
+                                        <rect key="frame" x="1" y="1" width="519" height="174"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <textView ambiguous="YES" editable="NO" importsGraphics="NO" richText="NO" findStyle="panel" usesRuler="YES" verticallyResizable="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" id="537">
-                                                <rect key="frame" x="0.0" y="0.0" width="519" height="134"/>
+                                            <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" id="537">
+                                                <rect key="frame" x="0.0" y="0.0" width="474" height="174"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <size key="minSize" width="519" height="134"/>
+                                                <size key="minSize" width="474" height="174"/>
                                                 <size key="maxSize" width="521" height="10000000"/>
                                                 <attributedString key="textStorage">
                                                     <fragment content=" ">
@@ -340,8 +338,6 @@
                                                     </fragment>
                                                 </attributedString>
                                                 <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <size key="minSize" width="519" height="134"/>
-                                                <size key="maxSize" width="521" height="10000000"/>
                                                 <allowedInputSourceLocales>
                                                     <string>NSAllRomanInputSourcesLocaleIdentifier</string>
                                                 </allowedInputSourceLocales>
@@ -354,7 +350,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="539">
-                                        <rect key="frame" x="503" y="1" width="15" height="148"/>
+                                        <rect key="frame" x="505" y="1" width="15" height="0.0"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
@@ -375,31 +371,32 @@
                             </subviews>
                         </view>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="536" secondAttribute="trailing" constant="23" id="47x-qO-9Fc"/>
-                            <constraint firstItem="536" firstAttribute="leading" secondItem="617" secondAttribute="leading" constant="16" id="CGb-sq-Cc3"/>
-                            <constraint firstAttribute="trailing" secondItem="614" secondAttribute="trailing" constant="22" id="FA3-Qa-PgN"/>
-                            <constraint firstItem="622" firstAttribute="top" secondItem="536" secondAttribute="bottom" constant="20" id="KQw-5Z-6VU"/>
-                            <constraint firstAttribute="bottom" secondItem="614" secondAttribute="bottom" constant="8" id="dSr-uv-nxR"/>
-                            <constraint firstAttribute="bottom" secondItem="622" secondAttribute="bottom" constant="8" id="iI8-LE-0z4"/>
-                            <constraint firstItem="622" firstAttribute="leading" secondItem="617" secondAttribute="leading" constant="16" id="nCe-su-sH4"/>
-                            <constraint firstItem="536" firstAttribute="top" secondItem="617" secondAttribute="top" constant="25" id="o7j-28-hIK"/>
+                            <constraint firstAttribute="bottom" secondItem="622" secondAttribute="bottom" constant="8" id="166-pp-DDP"/>
+                            <constraint firstAttribute="trailing" secondItem="614" secondAttribute="trailing" constant="22" id="2YU-Mo-exv"/>
+                            <constraint firstAttribute="trailing" secondItem="536" secondAttribute="trailing" constant="23" id="IUP-IT-nuI"/>
+                            <constraint firstAttribute="bottom" secondItem="614" secondAttribute="bottom" constant="8" id="JEc-CG-n6b"/>
+                            <constraint firstItem="536" firstAttribute="leading" secondItem="617" secondAttribute="leading" constant="16" id="Lt7-l7-vWU"/>
+                            <constraint firstItem="622" firstAttribute="top" secondItem="536" secondAttribute="bottom" constant="20" id="vGC-IU-en6"/>
+                            <constraint firstItem="536" firstAttribute="top" secondItem="617" secondAttribute="top" constant="25" id="wvL-Sj-Cos"/>
+                            <constraint firstItem="622" firstAttribute="leading" secondItem="617" secondAttribute="leading" constant="16" id="yL5-du-1Lm"/>
                         </constraints>
-                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
-                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </box>
                     <textField verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="628">
-                        <rect key="frame" x="245" y="15" width="111" height="19"/>
+                        <rect key="frame" x="245" y="20" width="111" height="19"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Implbits Software" id="629">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <progressIndicator hidden="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="633">
+                    <progressIndicator hidden="YES" wantsLayer="YES" maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="633">
                         <rect key="frame" x="20" y="14" width="560" height="20"/>
                     </progressIndicator>
                     <imageView hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tmq-K9-HDs">
-                        <rect key="frame" x="20" y="44" width="559" height="213"/>
+                        <rect key="frame" x="20" y="44" width="559" height="256"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="250" id="RzJ-Ci-agc"/>
+                        </constraints>
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" imageFrameStyle="photo" id="yHP-fs-YbR"/>
                     </imageView>
                 </subviews>
@@ -409,8 +406,8 @@
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="628" secondAttribute="bottom" constant="15" id="CXj-0y-b3M"/>
                     <constraint firstAttribute="trailing" secondItem="616" secondAttribute="trailing" constant="20" id="EzI-ui-Bm5"/>
                     <constraint firstAttribute="bottom" secondItem="633" secondAttribute="bottom" constant="15" id="LfC-RZ-s5E"/>
-                    <constraint firstItem="617" firstAttribute="top" secondItem="616" secondAttribute="bottom" constant="17" id="Oqx-MO-m7k"/>
-                    <constraint firstItem="tmq-K9-HDs" firstAttribute="top" secondItem="372" secondAttribute="top" constant="256" id="QGc-sL-QxH"/>
+                    <constraint firstItem="617" firstAttribute="top" secondItem="616" secondAttribute="bottom" constant="20" id="Oqx-MO-m7k"/>
+                    <constraint firstItem="tmq-K9-HDs" firstAttribute="top" secondItem="616" secondAttribute="bottom" constant="20" id="QGc-sL-QxH"/>
                     <constraint firstItem="616" firstAttribute="top" secondItem="372" secondAttribute="top" constant="20" id="TAv-S4-sOn"/>
                     <constraint firstItem="617" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="TQq-gT-q6s"/>
                     <constraint firstItem="tmq-K9-HDs" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="23" id="aAN-pa-J6W"/>
@@ -423,7 +420,7 @@
                     <constraint firstItem="616" firstAttribute="leading" secondItem="372" secondAttribute="leading" constant="20" id="l7e-Rq-92J"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="458" y="340"/>
+            <point key="canvasLocation" x="458" y="342.5"/>
         </window>
         <customObject id="494" customClass="AppDelegate">
             <connections>
